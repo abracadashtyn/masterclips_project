@@ -1,0 +1,21 @@
+{
+  "blogname": "clyptid",
+  "mysql": {
+    "host": "localhost",
+    "database": "masterclips_project"
+  },
+  "image_base_dir":"E:\\MasterclipsImages\\",
+  "tumblr_urls": {
+    "auth": "https://www.tumblr.com/oauth2/authorize",
+    "token": "https://api.tumblr.com/v2/oauth2/token",
+    "redirect": "https://www.tumblr.com/dashboard",
+    "post": "https://api.tumblr.com/v2/blog/{blogname}/posts"
+  },
+  "tumblr_standard_tags": [
+    "masterclips",
+    "clipart",
+    "clip art"
+  ],
+  "tumblr_default_post_state": "queue",
+  "tumblr_standard_attribution": "All images sourced from Masterclips Premium Image Collection via the Internet Archive. See collection here: https://archive.org/details/masterclips-cd-pack. More information can be found at https://clyptid.tumblr.com/about."
+}

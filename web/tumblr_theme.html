@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="//www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>{Title}</title>
+    <link rel="shortcut icon" href="{Favicon}">
+    <link rel="alternate" type="application/rss+xml" href="{RSS}">
+    {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
+
+    <meta name="color:desktopbg" content="#f271cf"/>
+    <meta name="color:browserbg" content="#ffffff"/>
+    <meta name="color:text" content="#898989"/>
+    <meta name="color:bold" content="#c30102"/>
+    <meta name="color:italic" content="#c30102"/>
+    <meta name="color:links" content="#c30102"/>
+    <meta name="color:linkshover" content="#bbb"/>
+    <meta name="color:quoteicon" content="#c30102"/>
+    <meta name="color:scrollbar" content="#ec380b"/>
+    <meta name="color:tooltipbg" content="#c30102">
+    <meta name="color:tooltiptext" content="#ffffff">
+    <meta name="text:fontsize" content="11"/>
+
+    <link rel="stylesheet" href="//cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <style type="text/css">
+        /* Styling applied to whole page */
+        body {
+            background:{color:desktopbg};
+            color:{color:text};
+            font-size:{text:fontsize}px;
+            font-family:tahoma;
+            font-weight:normal;
+            overflow:hidden;
+            margin:0;
+            padding:0;
+        }
+        .icon {
+            background-image: url('https://64.media.tumblr.com/f513c71140141bb612a003a3a4fe3d5c/713032e5d9c0eff1-70/s400x600/9cefb36263bc669573ad2193af0a5ae97baa14f6.pnj');
+        }
+        /* Grid container */
+        #contentwrapper {
+            display: grid;
+            grid-template-columns: 100px 1fr minmax(250px, 6fr) 1fr;
+            grid-template-rows: 1fr 20fr 1fr 35px;
+            justify-items: stretch;
+            height: 100vh;
+            overflow: hidden;
+        }
+        /* Grid item for the sidebar containing links */
+        #sidebar {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            grid-row-end: 4;
+            overflow: hidden;
+            padding-top:30px;
+            padding-left:20px;
+            justify-self:left;
+        }
+        /* Grid item for the window containing posts */
+        #mainwindow {
+            background-color: white;
+            grid-column-start: 3;
+            grid-column-end: 4;
+            grid-row-start: 2;
+            grid-row-end: 3;
+            overflow-y:auto;
+            font-size:15px;
+            padding:20px;
+            border:5px groove #4587f5;
+            border-radius:1% 1% 0% 0%;
+        }
+        /* Grid items for bar at bottom of page */
+        #bottom_bar {
+            background: rgb(35,92,219);
+background: linear-gradient(0deg, rgba(35,92,219,1) 48%, rgba(82,163,255,1) 91%, rgba(45,107,177,1) 100%);
+            grid-column-start: 1;
+            grid-column-end: 6;
+            grid-row-start: 4;
+            grid-row-end: 5;
+            overflow: hidden;
+            z-index:0;
+        }
+        #start_menu {
+            background: rgb(79,187,79);
+background: radial-gradient(circle, rgba(79,187,79,1) 0%, rgba(46,127,45,1) 100%);
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 4;
+            grid-row-end: 5;
+            overflow: hidden;
+            color:white;
+            font-size:20px;
+            padding:4px 0px 0px 10px;
+            border: solid 1px #115f12;
+            border-top-right-radius: 10px 40px;
+            border-bottom-right-radius: 10px 40px;
+            z-index:1;
+        }
+        #my_docs {
+            background-color: #1a50b8;
+            grid-column-start: 2;
+            grid-column-end: 3;
+            grid-row-start: 4;
+            grid-row-end: 5;
+            overflow: hidden;
+            z-index:1;
+            margin: 3px 15px 2px 15px;
+            border-radius:3px;
+            border: 2px solid #144096;
+            color:white;
+            font-size:13px;
+            padding:3px 0px 0px 10px;
+            text-shadow:1px 1px 3px #242424;
+        }
+        #time_box {
+            background: rgb(13,146,236);
+background: radial-gradient(circle, rgba(13,146,236,1) 94%, rgba(25,183,241,1) 100%);
+            grid-column-start: 5;
+            grid-column-end: 6;
+            grid-row-start: 4;
+            grid-row-end: 5;
+            overflow: hidden;
+            color:white;
+            font-size:13px;
+            border-left: 1px solid black;
+            z-index:1;
+            margin:2px 0px 2px 0px;
+            padding: 7px 15px 0px 15px;
+            text-shadow:1px 1px 3px #242424;
+        }
+
+        /* Sidebar content styling */
+        .linkwrapper {
+            margin-bottom: 20px;
+            width:50px;
+            text-align:center;
+            font-size:15px;
+            text-shadow:2px 1px 2px #242424;
+        }
+        .linkwrapper a {
+            color:white;
+            text-decoration: none;
+        }
+        .my_computer {
+            height: 32px;
+            width: 32px;
+            background-position: 0px 0px;
+            display:inline-block;
+        }
+        .about {
+            height: 32px;
+            width: 32px;
+            background-position: 64px -32px;
+            display:inline-block;
+        }
+        .ask {
+            height: 32px;
+            width: 32px;
+            background-position: -96px -32px;
+            display:inline-block;
+        }
+        .archive {
+            height: 32px;
+            width: 32px;
+            background-position: -32px -32px;
+            display:inline-block;
+        }
+        .recycle {
+            height: 32px;
+            width: 32px;
+            background-position: -64px 0px;
+            display:inline-block;
+        }
+
+        /* footer content styling */
+        #start_icon {
+            height: 16px;
+            width: 16px;
+            background-position: 0px 15px;
+            display:inline-block;
+        }
+        #start_text {
+            display:inline-block;
+            margin-left:5px;
+            text-shadow:1px 1px 3px #242424;
+        }
+        #docs_icon {
+            height: 16px;
+            width: 16px;
+            background-position: 0px 32px;
+            display:inline-block;
+        }
+
+    </style>
+    <script src="//static.tumblr.com/yzs4yqx/lOsokx99u/smoothscroll.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="//static.tumblr.com/fiw4iub/4jdnu5ta4/jquery.style-my-tooltips.js"></script>
+</head>
+<body>
+    <div id="contentwrapper">
+        <div id="sidebar">
+            <div class="linkwrapper">
+                <a href="/">
+                    <div class="my_computer icon"></div>
+                    <div>Take Me Home</div>
+                </a>
+            </div>
+            <div class="linkwrapper">
+                <a href="/about">
+                    <div class="about icon"></div>
+                    <div>About</div>
+                </a>
+            </div>
+            <div class="linkwrapper">
+                <a href="/ask">
+                    <div class="ask icon"></div>
+                    <div>Ask</div>
+                </a>
+            </div>
+            <div class="linkwrapper">
+                <a href="/archive">
+                    <div class="archive icon"></div>
+                    <div>Archive</div>
+                </a>
+            </div>
+            <div class="linkwrapper">
+                <a href="/about">
+                    <div class="recycle icon"></div>
+                    <div>Bin</div>
+                </a>
+            </div>
+        </div>
+        <div id="mainwindow">
+            <h1>Main Window</h1>
+            <p>
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet ultrices vestibulum. Curabitur sodales quam ut nisl pharetra tincidunt. Integer posuere pellentesque nulla a dictum. Sed sagittis justo purus, eget aliquam erat auctor ut. Nulla at posuere metus. Aliquam vulputate dolor et arcu cursus commodo. Sed porta felis quis ornare maximus. Nunc et enim a sem dignissim maximus id vel quam. Aenean cursus, metus in fringilla euismod, purus magna interdum justo, eget mollis augue dolor sed justo. Vivamus vehicula, libero at auctor volutpat, tellus tortor tristique velit, pellentesque faucibus neque lorem sed purus. Pellentesque tristique nisl in cursus vulputate.
+
+Sed at ultricies tellus. Suspendisse potenti. Sed rutrum diam enim, quis porttitor sem molestie ut. Morbi porta iaculis pretium. Mauris sed ex at quam mattis interdum. Mauris luctus tempor velit a tincidunt. Praesent ornare, felis at consequat blandit, purus nisl lobortis augue, sit amet fringilla eros augue ac ex. Fusce nec aliquam lorem, a varius quam. Ut faucibus consectetur lacinia.
+
+Pellentesque semper erat ut est elementum, sit amet porttitor sem finibus. Maecenas purus tortor, consectetur id finibus a, mattis ac orci. Aliquam eleifend justo eget tellus mattis, placerat volutpat mauris luctus. Pellentesque eleifend imperdiet posuere. Suspendisse lorem augue, feugiat eu ligula id, laoreet pulvinar erat. Mauris tincidunt lobortis diam, sed rhoncus sapien volutpat porta. Nulla tincidunt magna sit amet nibh elementum suscipit. Suspendisse quis pulvinar ex. Etiam commodo, lorem et rutrum molestie, orci ante sodales lacus, sed suscipit quam lorem gravida libero. Fusce scelerisque sed diam et porta. Etiam vehicula ligula magna, vitae eleifend massa rutrum ut. Aliquam vitae interdum tortor. Morbi sagittis elit sed nibh volutpat, sit amet posuere tortor consectetur. Nunc ullamcorper erat neque, a fermentum nisl ornare non. Donec sit amet leo auctor, pharetra libero sit amet, consectetur nisi. Phasellus erat magna, bibendum vitae bibendum sit amet, sagittis eu nibh.
+
+Cras sit amet luctus nisl, ac congue tortor. Aliquam erat volutpat. Duis dignissim eu est nec elementum. Sed porta, tortor a scelerisque venenatis, odio neque euismod velit, in pharetra tortor lacus quis ex. Fusce auctor quis enim in viverra. Sed condimentum dolor vulputate turpis cursus ullamcorper. Quisque faucibus libero vel feugiat tincidunt. Phasellus tempor nisi eget nulla luctus, varius vehicula nisl feugiat. Fusce eget libero lorem.
+
+Mauris ac sagittis mi, ac pharetra velit. Nam ante enim, vehicula non varius et, rhoncus nec sapien. Nullam iaculis, massa et imperdiet volutpat, quam leo condimentum mi, eu elementum justo elit id dui. Duis molestie auctor tellus id auctor. Cras nec mi non ante suscipit semper eu id justo. Duis eu aliquam turpis. Donec feugiat urna nec sapien interdum, eget blandit arcu tristique. Pellentesque eu diam ex. Nullam faucibus in diam at accumsan. Curabitur tempor arcu vel felis ornare molestie. Nam iaculis nunc tincidunt scelerisque lacinia. Integer scelerisque ante turpis, sit amet ullamcorper lectus ultrices a. Ut malesuada eleifend finibus. Curabitur turpis velit, suscipit eu ex ut, vestibulum sodales diam.
+
+Maecenas ut quam eget nulla sodales imperdiet. Donec fringilla et augue et finibus. Proin ut neque vitae leo tempor rhoncus consectetur eget est. Duis interdum, ipsum a lobortis cursus, neque leo hendrerit urna, id mattis arcu tortor sed nunc. Nullam mollis bibendum tempus. Donec elementum, nisi ut dignissim lacinia, felis est efficitur arcu, sit amet pellentesque magna risus quis dolor. Sed velit purus, ultricies quis pharetra eget, convallis eu tellus. Nulla vehicula nisi quis nulla blandit dictum. Sed vel quam ac tortor maximus convallis ac quis tortor. Phasellus ac facilisis ligula, a sagittis lectus. Sed eleifend urna tellus, quis bibendum magna ornare id. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla id erat dolor. Donec id tortor in sapien aliquet scelerisque. Fusce ut nibh nec mauris rutrum suscipit vel ut nunc.
+
+Donec sed tortor non elit faucibus venenatis eget vitae felis. Maecenas id laoreet augue. Mauris in libero neque. Nulla ac felis hendrerit, rhoncus odio vitae, tristique purus. Suspendisse semper tellus ut ultricies commodo. Ut vel tristique lorem. Phasellus tortor tortor, venenatis ac mi sed, semper viverra tellus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Mauris commodo convallis arcu, ac porta lacus iaculis viverra. Vivamus posuere, nisl eu porta finibus, purus turpis finibus lectus, sit amet lobortis odio justo ut odio. Nulla pharetra mi nec nisl tempor pharetra. Fusce nec efficitur arcu. Nulla facilisi. Vestibulum ac nisl vitae dolor viverra ullamcorper. Suspendisse malesuada laoreet viverra. Vivamus viverra molestie urna. Aliquam maximus purus nec lorem ullamcorper dignissim quis vel eros.
+
+Suspendisse ac sem sapien. Ut gravida risus sed eros condimentum pulvinar. Fusce eu odio metus. Vivamus sem dolor, dignissim vitae ornare eu, interdum non dolor. Donec auctor ex in auctor porttitor. Cras rhoncus ante ut ligula euismod varius. Etiam suscipit lobortis iaculis. Nulla dictum felis quam, ut porttitor nisl tristique interdum. Nulla semper ante nec vestibulum hendrerit. Pellentesque ut ultricies dolor, quis venenatis felis. Ut finibus justo id venenatis consectetur. Aenean rutrum sed arcu in venenatis. Fusce mollis dui ipsum, eu ullamcorper dui sagittis et. Quisque augue sapien, vulputate a nulla nec, sodales feugiat turpis. Aenean facilisis faucibus nisi id mollis. Nunc interdum, ipsum vitae bibendum tristique, neque sem porta mi, in fringilla mauris augue in velit.
+
+Mauris ex tortor, vestibulum sed tincidunt vel, molestie eu neque. Nam placerat pretium auctor. Curabitur ante nibh, ultrices nec vestibulum id, auctor ut nisl. Etiam fermentum scelerisque eros nec mollis. Etiam eleifend pellentesque sapien, ut sagittis neque. Nam a consectetur tortor. Sed sit amet justo sagittis nisi convallis ornare nec non enim. Sed dignissim commodo metus in imperdiet. Fusce varius, eros a mattis bibendum, enim erat dictum urna, a molestie lorem lectus sit amet nunc. Nunc ut maximus enim. Mauris sodales eget quam vitae maximus. </p>
+        </div>
+        <div id="bottom_bar">
+            <span>other stuff</span>
+        </div>
+        <div id="start_menu">
+            <div id="start_icon" class="icon"></div>
+            <div id="start_text">start</div>
+        </div>
+        <div id="my_docs" class="open_program">
+            <div id="docs_icon" class="icon"></div>
+            <div id="start_text">My Documents</div>
+        </div>
+        <div id="time_box">
+            <span>11:11 PM</span>
+        </div>
+    </div>
+</body>
+</html>
