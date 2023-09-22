@@ -8,22 +8,19 @@ import os
 
 from PIL import Image
 from wand.image import Image as wima
-
 from pycode.config.config import Config
 from pycode.objects.clipart_image import get_image_by_file_data_query, ClipartImage
 from pycode.objects.mysql_connection import MysqlConnection
 
 # TODO make sure you change this to the appropriate cd number - mounted drive pairs for each run
 drive_to_cd_number_pairs = [
-    (2, "F:\\"),
-    (3, "G:\\"),
-    (4, "H:\\"),
-    (5, "I:\\"),
-    (6, "J:\\"),
-    (7, "K:\\"),
-    (8, "L:\\"),
-    (9, "M:\\"),
-    (10, "N:\\"),
+    (22, "G:\\"),
+    (23, "J:\\"),
+    (24, "K:\\"),
+    (25, "L:\\"),
+    (26, "M:\\"),
+    #(27, "H:\\"),
+    #(28, "N:\\"),
 ]
 
 endings_for_conversion = ['.WMF', '.wmf', '.tif', '.TIF', '.tiff', '.TIFF']
@@ -33,8 +30,8 @@ if __name__ == "__main__":
     logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
     config = Config()
     db_conn = MysqlConnection(config)
-    output_dir = config.get_image_base_dir()
-    logging.info("Saving images to {0}".format(output_dir))
+    output_base_dir = config.get_image_base_dir()
+    logging.info("Saving images to {0}".format(output_base_dir))
 
     for (cd_number, mounted_drive) in drive_to_cd_number_pairs:
         logging.info("Converting CD {0}...".format(cd_number))
@@ -57,24 +54,22 @@ if __name__ == "__main__":
 
                     input_location = os.path.join(root, file)
                     output_filename = '{0}.png'.format(file_name) if should_convert else file
-                    output_directory = root.replace(mounted_drive, output_dir)
+                    output_directory = root.replace(mounted_drive, output_base_dir)
                     if not os.path.exists(output_directory):
                         os.makedirs(output_directory)
                     output_location = os.path.join(output_directory, output_filename)
-                    subdirectory = output_directory.replace("D:\\Files\\MasterclipsImages\\", "").rstrip('\\')
+                    subdirectory = output_directory.replace(output_base_dir, "").rstrip('\\')
 
                     if os.path.exists(output_location):
                         logging.debug("File {0} already exists, skipping...".format(output_location))
                         # make sure the file was saved to the database - if not, add a record
-                        query, values = get_image_by_file_data_query(output_filename, cd_number, subdirectory)
-                        existing_records = db_conn.execute_sql_query(query, values)
+                        existing_records = db_conn.execute_sql_query(*get_image_by_file_data_query(output_filename, cd_number, subdirectory))
                         if len(existing_records) == 0:
                             logging.debug("No existing records found for {0}. Creating a new one and inserting...".format(output_filename))
                             new_image = ClipartImage(filename=output_filename, origin_cd=cd_number,
                                                      subdirectories=subdirectory, failed_to_save=failed,
                                                      original_file_extension=file_extension.lstrip("."))
-                            insert_statement, values = new_image.get_insert_statement()
-                            db_conn.execute_sql_statement(insert_statement, values)
+                            db_conn.execute_sql_statement(*new_image.get_insert_statement())
                         continue
 
                     # if the output location does not exist yet, the image has not been converted; do so now.
@@ -98,8 +93,7 @@ if __name__ == "__main__":
                     new_image = ClipartImage(filename=output_filename, origin_cd=cd_number,
                                              subdirectories=subdirectory, failed_to_save=failed,
                                              original_file_extension=file_extension.lstrip("."))
-                    insert_statement, values = new_image.get_insert_statement()
-                    db_conn.execute_sql_statement(insert_statement, values)
+                    db_conn.execute_sql_statement(*new_image.get_insert_statement())
 
                 else:
                     logging.debug("Skipping file {0} with extension {1}".format(file, file_extension))

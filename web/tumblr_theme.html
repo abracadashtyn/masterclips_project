@@ -34,13 +34,36 @@
             padding:0;
         }
         .icon {
-            background-image: url('https://64.media.tumblr.com/f513c71140141bb612a003a3a4fe3d5c/713032e5d9c0eff1-70/s400x600/9cefb36263bc669573ad2193af0a5ae97baa14f6.pnj');
+            background-image: url('https://64.media.tumblr.com/6c4cdebbed9f570b426f1aa57e2e6177/65e4e0175d83a874-e2/s1280x1920/2d6d47ad015fabb98dcf79fbd4e7042ac2481e52.pnj');
         }
+        /* Scrollbar customization */
+        /* Works on Firefox */
+        * {
+          scrollbar-color: #c2d5fc #fbfbf9;
+        }
+
+        /* Works on Chrome, Edge, and Safari */
+        #main_window::-webkit-scrollbar {
+            width:20px;
+        }
+
+        #main_window::-webkit-scrollbar-track {
+          background: #fbfbf9;
+        }
+
+        #main_window::-webkit-scrollbar-thumb {
+          background-color: #c2d5fc;
+          border-radius: 7px;
+          border: 3px solid white;
+          box-shadow: inset 0 0 3px #4587f5;
+        }
+
+
         /* Grid container */
         #contentwrapper {
             display: grid;
-            grid-template-columns: 100px 1fr minmax(250px, 6fr) 1fr;
-            grid-template-rows: 1fr 20fr 1fr 35px;
+            grid-template-columns: 20px 100px 20px 1fr 20px 1fr minmax(250px, 4fr) 60px 1fr;
+            grid-template-rows: 1fr 30px 45px 16fr 25px 1fr 35px;
             justify-items: stretch;
             height: 100vh;
             overflow: hidden;
@@ -48,45 +71,123 @@
         /* Grid item for the sidebar containing links */
         #sidebar {
             grid-column-start: 1;
-            grid-column-end: 2;
+            grid-column-end: 3;
             grid-row-start: 1;
-            grid-row-end: 4;
+            grid-row-end: 7;
             overflow: hidden;
             padding-top:30px;
             padding-left:20px;
             justify-self:left;
+            z-index:2;
         }
         /* Grid item for the window containing posts */
-        #mainwindow {
-            background-color: white;
-            grid-column-start: 3;
-            grid-column-end: 4;
+        #main_window_outline {
+            grid-column-start: 5;
+            grid-column-end: 9;
+            grid-row-start: 2;
+            grid-row-end: 6;
+            border-radius:10px 10px 0px 0px;
+            outline: 4px ridge #4587f5;
+            z-index:0;
+        }
+        #main_window_header {
+            background: rgb(35,92,219);
+            background: linear-gradient(0deg, rgba(35,92,219,1) 48%, rgba(82,163,255,1) 91%, rgba(45,107,177,1) 100%);
+            grid-column-start: 5;
+            grid-column-end: 9;
             grid-row-start: 2;
             grid-row-end: 3;
+            overflow: hidden;
+            border-radius:10px 10px 0px 0px;
+            border-bottom: 2px solid #4587f5;;
+            z-index:1;
+        }
+        #main_window_icon {
+            grid-column-start: 5;
+            grid-column-end: 6;
+            grid-row-start: 2;
+            grid-row-end: 3;
+            overflow: hidden;
+            z-index:2;
+            margin: 4px 5px 0px 10px;
+        }
+        #main_window_title {
+            grid-column-start: 6;
+            grid-column-end: 8;
+            grid-row-start: 2;
+            grid-row-end: 3;
+            overflow: hidden;
+            z-index:2;
+            color: white;
+            font-size:16px;
+            text-shadow:1px 1px 3px #242424;
+            margin: 4px 5px 0px 20px;
+        }
+        #main_window_buttons {
+            grid-column-start: 8;
+            grid-column-end: 9;
+            grid-row-start: 2;
+            grid-row-end: 3;
+            overflow: hidden;
+            margin: 5px 7px 0px 0px;
+            z-index: 2;
+            justify-self: right;
+        }
+        #main_window_nav {
+            grid-column-start: 5;
+            grid-column-end: 9;
+            grid-row-start: 3;
+            grid-row-end: 4;
+            color:red;
+            overflow: hidden;
+            z-index: 1;
+            background: rgb(172,168,153);
+            background: linear-gradient(0deg, rgba(172,168,153,1) 0%, rgba(236,233,216,1) 10%);
+            display: flex;
+            align-items: center;
+            justify-content: left;
+        }
+        #main_window {
+            background-color: white;
+            grid-column-start: 5;
+            grid-column-end: 9;
+            grid-row-start: 4;
+            grid-row-end: 5;
             overflow-y:auto;
+            z-index: 1;
             font-size:15px;
             padding:20px;
-            border:5px groove #4587f5;
-            border-radius:1% 1% 0% 0%;
+            border: 3px groove #aca899;
         }
+        #main_window_footer {
+            grid-column-start: 5;
+            grid-column-end: 9;
+            grid-row-start: 5;
+            grid-row-end: 6;
+            z-index: 1;
+            background-color:#ece9d8;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(172,168,153,1) 0%, rgba(236,233,216,1) 10%);
+        }
+
         /* Grid items for bar at bottom of page */
         #bottom_bar {
             background: rgb(35,92,219);
-background: linear-gradient(0deg, rgba(35,92,219,1) 48%, rgba(82,163,255,1) 91%, rgba(45,107,177,1) 100%);
+            background: linear-gradient(0deg, rgba(35,92,219,1) 48%, rgba(82,163,255,1) 91%, rgba(45,107,177,1) 100%);
             grid-column-start: 1;
-            grid-column-end: 6;
-            grid-row-start: 4;
-            grid-row-end: 5;
+            grid-column-end: 10;
+            grid-row-start: 7;
+            grid-row-end: 8;
             overflow: hidden;
             z-index:0;
         }
         #start_menu {
             background: rgb(79,187,79);
-background: radial-gradient(circle, rgba(79,187,79,1) 0%, rgba(46,127,45,1) 100%);
+            background: radial-gradient(circle, rgba(79,187,79,1) 0%, rgba(46,127,45,1) 100%);
             grid-column-start: 1;
-            grid-column-end: 2;
-            grid-row-start: 4;
-            grid-row-end: 5;
+            grid-column-end: 3;
+            grid-row-start: 7;
+            grid-row-end: 8;
             overflow: hidden;
             color:white;
             font-size:20px;
@@ -95,38 +196,93 @@ background: radial-gradient(circle, rgba(79,187,79,1) 0%, rgba(46,127,45,1) 100%
             border-top-right-radius: 10px 40px;
             border-bottom-right-radius: 10px 40px;
             z-index:1;
+            margin-right:10px;
         }
-        #my_docs {
-            background-color: #1a50b8;
+        #start_menu_icon {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 7;
+            grid-row-end: 8;
+            margin: 7px 5px 0px 15px;
+            z-index:2;
+        }
+        #start_menu_text {
             grid-column-start: 2;
             grid-column-end: 3;
-            grid-row-start: 4;
-            grid-row-end: 5;
+            grid-row-start: 7;
+            grid-row-end: 8;
+            z-index: 2;
+            color: white;
+            font-size: 18px;
+            text-shadow:1px 1px 3px #242424;
+            margin:6px 5px 0px 28px;
+        }
+        #my_computer {
+            grid-column-start: 3;
+            grid-column-end: 5;
+            grid-row-start: 7;
+            grid-row-end: 8;
             overflow: hidden;
             z-index:1;
-            margin: 3px 15px 2px 15px;
-            border-radius:3px;
-            border: 2px solid #144096;
-            color:white;
-            font-size:13px;
-            padding:3px 0px 0px 10px;
-            text-shadow:1px 1px 3px #242424;
+        }
+        #my_computer_icon {
+            grid-column-start: 3;
+            grid-column-end: 4;
+            grid-row-start: 7;
+            grid-row-end: 8;
+            overflow: hidden;
+            margin: 7px 5px 0px 10px;
+            z-index:2;
+        }
+        #my_computer_text {
+            grid-column-start: 4;
+            grid-column-end: 5;
+            grid-row-start: 7;
+            grid-row-end: 8;
+            overflow: hidden;
+            z-index:2;
+        }
+        #blog {
+            grid-column-start:5;
+            grid-column-end: 7;
+            grid-row-start: 7;
+            grid-row-end: 8;
+            overflow: hidden;
+            z-index:1;
+        }
+        #blog_icon {
+            grid-column-start:5;
+            grid-column-end: 6;
+            grid-row-start: 7;
+            grid-row-end: 8;
+            overflow: hidden;
+            margin: 7px 5px 0px 10px;
+            z-index:2;
+        }
+        #blog_text {
+            grid-column-start:6;
+            grid-column-end: 7;
+            grid-row-start: 7;
+            grid-row-end: 8;
+            overflow: hidden;
+            z-index:2;
         }
         #time_box {
             background: rgb(13,146,236);
-background: radial-gradient(circle, rgba(13,146,236,1) 94%, rgba(25,183,241,1) 100%);
-            grid-column-start: 5;
-            grid-column-end: 6;
-            grid-row-start: 4;
-            grid-row-end: 5;
+            background: radial-gradient(circle, rgba(13,146,236,1) 94%, rgba(25,183,241,1) 100%);
+            grid-column-start: 9;
+            grid-column-end: 10;
+            grid-row-start: 7;
+            grid-row-end: 8;
             overflow: hidden;
             color:white;
             font-size:13px;
-            border-left: 1px solid black;
+
             z-index:1;
             margin:2px 0px 2px 0px;
             padding: 7px 15px 0px 15px;
             text-shadow:1px 1px 3px #242424;
+            justify-self:right;
         }
 
         /* Sidebar content styling */
@@ -142,53 +298,138 @@ background: radial-gradient(circle, rgba(13,146,236,1) 94%, rgba(25,183,241,1) 1
             text-decoration: none;
         }
         .my_computer {
-            height: 32px;
-            width: 32px;
-            background-position: 0px 0px;
+            height: 34px;
+            width: 34px;
+            background-position: -8px -8px;
             display:inline-block;
         }
         .about {
-            height: 32px;
-            width: 32px;
-            background-position: 64px -32px;
+            height: 34px;
+            width: 34px;
+            background-position: -356px -8px;
             display:inline-block;
         }
         .ask {
-            height: 32px;
-            width: 32px;
-            background-position: -96px -32px;
+            height: 34px;
+            width: 34px;
+            background-position: -108px -8px;
             display:inline-block;
         }
         .archive {
-            height: 32px;
-            width: 32px;
-            background-position: -32px -32px;
+            height: 34px;
+            width: 34px;
+            background-position: -256px -8px;
             display:inline-block;
         }
         .recycle {
-            height: 32px;
-            width: 32px;
-            background-position: -64px 0px;
+            height: 34px;
+            width: 34px;
+            background-position: -408px -8px;
             display:inline-block;
         }
 
+        /* main compartment styling */
+        .max_min_close_icons {
+            height: 20px;
+            width: 63px;
+            background-position: -512px -64px;
+        }
+        #back_button {
+            height: 40px;
+            width: 40px;
+            background-position: -506px -7px;
+            margin-top:5px;
+            margin-left:10px;
+            display:inline-block;
+        }
+        .nav_button_text {
+            color:black;
+            font-size:13px;
+            margin-top:-3px;
+            margin-left:10px;
+            padding-right:10px;
+            margin-right:15px;
+            border-right: 1px solid #aca899;
+        }
+        .nav_link {
+            text-decoration: none;
+            color: black;
+        }
+        .nav_button_text:visited {
+            text-decoration: none;
+            color: black;
+        }
+        #forward_button {
+            height: 40px;
+            width: 40px;
+            background-position: -656px -8px;
+            margin-top:5px;
+            display:inline-block;
+        }
+        .post_wrapper {
+            margin-bottom:20px;
+            border: 5px solid red;
+        }
+        .npf_title {
+            border: 5px solid orange;
+        }
+        .npf_content {
+            border: 5px solid green;
+        }
+        .caption {
+            border: 5px solid yellow;
+        }
+        .tags {
+            color: green;
+            font-size: 13px;
+            font-style: italic;
+        }
+        .post_footer {
+            color: purple;
+            font-size: 13px;
+            font-style: italic;
+        }
+
         /* footer content styling */
-        #start_icon {
-            height: 16px;
-            width: 16px;
-            background-position: 0px 15px;
+        .windows_icon {
+            height: 24px;
+            width: 24px;
+            background-position: -464px -64px;
+        }
+        .my_computer_icon {
+            height: 20px;
+            width: 20px;
+            background-position: -116px -64px;
             display:inline-block;
         }
-        #start_text {
+        .blog_icon {
+            height: 20px;
+            width: 20px;
+            background-position: -416px -64px;
             display:inline-block;
-            margin-left:5px;
+        }
+        .program {
+            border-radius:3px;
+            padding:1px 0px 0px 10px;
+            margin: 3px 2px 3px 1px;
+        }
+        .program_text {
+            color: white;
+            font-size:13px;
+            padding:4px 0px 0px 10px;
             text-shadow:1px 1px 3px #242424;
+            margin:5px 5px 0px 5px;
+            white-space: nowrap;
         }
-        #docs_icon {
-            height: 16px;
-            width: 16px;
-            background-position: 0px 32px;
-            display:inline-block;
+        .inactive {
+            border: 1.5px solid #306fd9;
+             background: rgb(173,211,255);
+background: linear-gradient(171deg, rgba(173,211,255,1) 0%, rgba(82,163,255,1) 18%, rgba(82,163,255,1) 69%, rgba(70,134,242,1) 100%);
+        }
+        .active {
+            border: 1.5px solid #1a50b8;
+             background: rgb(26,80,184);
+background: linear-gradient(175deg, rgba(26,80,184,1) 0%, rgba(36,91,199,1) 18%, rgba(36,91,199,1) 69%, rgba(46,104,217,1) 100%);
         }
 
     </style>
@@ -202,7 +443,7 @@ background: radial-gradient(circle, rgba(13,146,236,1) 94%, rgba(25,183,241,1) 1
             <div class="linkwrapper">
                 <a href="/">
                     <div class="my_computer icon"></div>
-                    <div>Take Me Home</div>
+                    <div>Home</div>
                 </a>
             </div>
             <div class="linkwrapper">
@@ -226,45 +467,173 @@ background: radial-gradient(circle, rgba(13,146,236,1) 94%, rgba(25,183,241,1) 1
             <div class="linkwrapper">
                 <a href="/about">
                     <div class="recycle icon"></div>
-                    <div>Bin</div>
+                    <div>Trash</div>
                 </a>
             </div>
         </div>
-        <div id="mainwindow">
-            <h1>Main Window</h1>
-            <p>
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc imperdiet ultrices vestibulum. Curabitur sodales quam ut nisl pharetra tincidunt. Integer posuere pellentesque nulla a dictum. Sed sagittis justo purus, eget aliquam erat auctor ut. Nulla at posuere metus. Aliquam vulputate dolor et arcu cursus commodo. Sed porta felis quis ornare maximus. Nunc et enim a sem dignissim maximus id vel quam. Aenean cursus, metus in fringilla euismod, purus magna interdum justo, eget mollis augue dolor sed justo. Vivamus vehicula, libero at auctor volutpat, tellus tortor tristique velit, pellentesque faucibus neque lorem sed purus. Pellentesque tristique nisl in cursus vulputate.
-
-Sed at ultricies tellus. Suspendisse potenti. Sed rutrum diam enim, quis porttitor sem molestie ut. Morbi porta iaculis pretium. Mauris sed ex at quam mattis interdum. Mauris luctus tempor velit a tincidunt. Praesent ornare, felis at consequat blandit, purus nisl lobortis augue, sit amet fringilla eros augue ac ex. Fusce nec aliquam lorem, a varius quam. Ut faucibus consectetur lacinia.
-
-Pellentesque semper erat ut est elementum, sit amet porttitor sem finibus. Maecenas purus tortor, consectetur id finibus a, mattis ac orci. Aliquam eleifend justo eget tellus mattis, placerat volutpat mauris luctus. Pellentesque eleifend imperdiet posuere. Suspendisse lorem augue, feugiat eu ligula id, laoreet pulvinar erat. Mauris tincidunt lobortis diam, sed rhoncus sapien volutpat porta. Nulla tincidunt magna sit amet nibh elementum suscipit. Suspendisse quis pulvinar ex. Etiam commodo, lorem et rutrum molestie, orci ante sodales lacus, sed suscipit quam lorem gravida libero. Fusce scelerisque sed diam et porta. Etiam vehicula ligula magna, vitae eleifend massa rutrum ut. Aliquam vitae interdum tortor. Morbi sagittis elit sed nibh volutpat, sit amet posuere tortor consectetur. Nunc ullamcorper erat neque, a fermentum nisl ornare non. Donec sit amet leo auctor, pharetra libero sit amet, consectetur nisi. Phasellus erat magna, bibendum vitae bibendum sit amet, sagittis eu nibh.
-
-Cras sit amet luctus nisl, ac congue tortor. Aliquam erat volutpat. Duis dignissim eu est nec elementum. Sed porta, tortor a scelerisque venenatis, odio neque euismod velit, in pharetra tortor lacus quis ex. Fusce auctor quis enim in viverra. Sed condimentum dolor vulputate turpis cursus ullamcorper. Quisque faucibus libero vel feugiat tincidunt. Phasellus tempor nisi eget nulla luctus, varius vehicula nisl feugiat. Fusce eget libero lorem.
-
-Mauris ac sagittis mi, ac pharetra velit. Nam ante enim, vehicula non varius et, rhoncus nec sapien. Nullam iaculis, massa et imperdiet volutpat, quam leo condimentum mi, eu elementum justo elit id dui. Duis molestie auctor tellus id auctor. Cras nec mi non ante suscipit semper eu id justo. Duis eu aliquam turpis. Donec feugiat urna nec sapien interdum, eget blandit arcu tristique. Pellentesque eu diam ex. Nullam faucibus in diam at accumsan. Curabitur tempor arcu vel felis ornare molestie. Nam iaculis nunc tincidunt scelerisque lacinia. Integer scelerisque ante turpis, sit amet ullamcorper lectus ultrices a. Ut malesuada eleifend finibus. Curabitur turpis velit, suscipit eu ex ut, vestibulum sodales diam.
-
-Maecenas ut quam eget nulla sodales imperdiet. Donec fringilla et augue et finibus. Proin ut neque vitae leo tempor rhoncus consectetur eget est. Duis interdum, ipsum a lobortis cursus, neque leo hendrerit urna, id mattis arcu tortor sed nunc. Nullam mollis bibendum tempus. Donec elementum, nisi ut dignissim lacinia, felis est efficitur arcu, sit amet pellentesque magna risus quis dolor. Sed velit purus, ultricies quis pharetra eget, convallis eu tellus. Nulla vehicula nisi quis nulla blandit dictum. Sed vel quam ac tortor maximus convallis ac quis tortor. Phasellus ac facilisis ligula, a sagittis lectus. Sed eleifend urna tellus, quis bibendum magna ornare id. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla id erat dolor. Donec id tortor in sapien aliquet scelerisque. Fusce ut nibh nec mauris rutrum suscipit vel ut nunc.
-
-Donec sed tortor non elit faucibus venenatis eget vitae felis. Maecenas id laoreet augue. Mauris in libero neque. Nulla ac felis hendrerit, rhoncus odio vitae, tristique purus. Suspendisse semper tellus ut ultricies commodo. Ut vel tristique lorem. Phasellus tortor tortor, venenatis ac mi sed, semper viverra tellus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-
-Mauris commodo convallis arcu, ac porta lacus iaculis viverra. Vivamus posuere, nisl eu porta finibus, purus turpis finibus lectus, sit amet lobortis odio justo ut odio. Nulla pharetra mi nec nisl tempor pharetra. Fusce nec efficitur arcu. Nulla facilisi. Vestibulum ac nisl vitae dolor viverra ullamcorper. Suspendisse malesuada laoreet viverra. Vivamus viverra molestie urna. Aliquam maximus purus nec lorem ullamcorper dignissim quis vel eros.
-
-Suspendisse ac sem sapien. Ut gravida risus sed eros condimentum pulvinar. Fusce eu odio metus. Vivamus sem dolor, dignissim vitae ornare eu, interdum non dolor. Donec auctor ex in auctor porttitor. Cras rhoncus ante ut ligula euismod varius. Etiam suscipit lobortis iaculis. Nulla dictum felis quam, ut porttitor nisl tristique interdum. Nulla semper ante nec vestibulum hendrerit. Pellentesque ut ultricies dolor, quis venenatis felis. Ut finibus justo id venenatis consectetur. Aenean rutrum sed arcu in venenatis. Fusce mollis dui ipsum, eu ullamcorper dui sagittis et. Quisque augue sapien, vulputate a nulla nec, sodales feugiat turpis. Aenean facilisis faucibus nisi id mollis. Nunc interdum, ipsum vitae bibendum tristique, neque sem porta mi, in fringilla mauris augue in velit.
-
-Mauris ex tortor, vestibulum sed tincidunt vel, molestie eu neque. Nam placerat pretium auctor. Curabitur ante nibh, ultrices nec vestibulum id, auctor ut nisl. Etiam fermentum scelerisque eros nec mollis. Etiam eleifend pellentesque sapien, ut sagittis neque. Nam a consectetur tortor. Sed sit amet justo sagittis nisi convallis ornare nec non enim. Sed dignissim commodo metus in imperdiet. Fusce varius, eros a mattis bibendum, enim erat dictum urna, a molestie lorem lectus sit amet nunc. Nunc ut maximus enim. Mauris sodales eget quam vitae maximus. </p>
+        <div id="main_window_outline"></div>
+        <div id="main_window_header"></div>
+        <div id="main_window_icon" class="blog_icon icon"></div>
+        <div id="main_window_title">An Odd Assortment of Clipart from the MasterClips Premium Image Collection</div>
+        <div id="main_window_buttons" class="max_min_close_icons icon"></div>
+        <div id="main_window_nav" class="">
+            <span id="back_button" class="icon"><a href="{PreviousPage}"></a></span>
+            <span class="nav_button_text"><a class="nav_link" href="{PreviousPage}">Prev Page</a></span>
+            <span id="forward_button" class="icon"><a href="{NextPage}"></a></span>
+            <span class="nav_button_text"><a class="nav_link" href="{NextPage}">Next Page</a></span>
         </div>
-        <div id="bottom_bar">
-            <span>other stuff</span>
+        <div id="main_window">
+            {block:Posts}
+            <div class="post_wrapper">
+                <!-- Neue Post format posts are represented as text posts in this framework, so all auto-generated posts will be styled by the following -->
+                {block:Text}
+                    {block:Title}
+                        <div class="npf_title">
+                            {Title}
+                        </div>
+                    {/block:Title}
+                    <div class="npf_content">
+                        {Body}
+                    </div>
+                {/block:Text}
+
+                <!-- I don't anticipate having much if any of the following, but it is included here to be expanded upon if so-->
+                {block:Photo}
+                    <div class="legacy_image_post">
+                        {LinkOpenTag}
+                            <img src="{PhotoURL-500}" class="full_image" alt="{PhotoAlt}" />
+                        {LinkCloseTag}
+                        {block:HighRes}<div class="make_lightbox" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" data-lowres="{PhotoURL-500}" data-highres="{PhotoURL-HighRes}">{lang:Click for high-res photo}</div>{/block:HighRes}
+                    </div>
+                    {block:Caption}
+                        <div class="caption">
+                            {Caption}
+                        </div>
+                    {/block:Caption}
+                {/block:Photo}
+
+                {block:Photoset}
+                    <div class="legacy_image_post">
+                        <div class="photoset-grid" data-layout="{PhotosetLayout}" style="visibility: hidden;">
+                            {block:Photos}
+                                <img src="{PhotoURL-500}" {block:HighRes}data-highres="{PhotoURL-HighRes}"{/block:HighRes} data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" {block:Caption}alt="{Caption}"{/block:caption} />
+                            {/block:Photos}
+                        </div>
+                    </div>
+                    {block:Caption}
+                        <div class="caption">
+                            {Caption}
+                        </div>
+                    {/block:Caption}
+                {/block:Photoset}
+
+                {block:Quote}
+                    <div class="legacy_quote_title">
+                        "{Quote}"
+                    </div>
+                    {block:Source}
+                        <div class="legacy_quote_source">
+                            &mdash; {Source}
+                        </div>
+                    {/block:Source}
+                {/block:Quote}
+
+                {block:Link}
+                    <a href="{URL}" class="legacy_link" {Target}>
+                        {Name} &rarr;
+                    </a>
+                    {block:Description}
+                        <div class="legacy_link_description">
+                            {Description}
+                        </div>
+                    {/block:Description}
+                {/block:Link}
+
+                {block:Video}
+                    <div class="legacy_video_player" data-from-page="{CurrentPage}">
+                        {VideoEmbed-400}
+                    </div>
+                    {block:Caption}
+                        <div class="caption">
+                            {Caption}
+                        </div>
+                    {/block:Caption}
+                {/block:Video}
+
+                {block:Audio}
+                    {block:AudioEmbed}
+                        <div data-from-page="{CurrentPage}">{AudioEmbed-400}</div>
+                    {/block:AudioEmbed}
+                    {block:AudioPlayer}
+                        {block:AlbumArt}
+                            <img src="{AlbumArtURL}" alt="Artwork" class="full_image" />
+                        {/block:AlbumArt}
+                        <div data-from-page="{CurrentPage}" style="height: 27px;">
+                            {AudioPlayer}
+                        </div>
+                    {/block:AudioPlayer}
+                    {block:Caption}
+                        <div class="caption">
+                            {Caption}
+                        </div>
+                    {/block:Caption}
+                {/block:Audio}
+
+                {block:Answer}
+                    <div class="legacy_answer_question">
+                        {lang:Asker asked 2}: {Question}
+                    </div>
+                    <div class="legacy_answer_response">
+                        {Answer}
+                    </div>
+                {/block:Answer}
+
+                {block:HasTags}
+                    <div class="tags">
+                        {lang:Tagged}:
+                        {block:Tags}
+                            <a href="{TagURL}">#{Tag}</a><span class="hide_if_last">, </span>
+                        {/block:Tags}
+                    </div>
+                {/block:HasTags}
+
+                <a href="{Permalink}">
+                    <div class="post_footer">
+                        {block:Date}
+                            {lang:Posted TimeAgo with NoteCount notes}
+                        {/block:Date}
+                    </div>
+                </a>
+
+                {block:PermalinkPage}
+                    {block:ContentSource}<div class="attribution">({lang:Source}: <a href="{SourceURL}">{SourceTitle}</a>{block:RebloggedFrom}, {lang:Reblogged from}: <a href="{ReblogParentURL}">{ReblogParentName}</a>{/block:RebloggedFrom})</div>{/block:ContentSource}
+                    {block:IfNotTagsOnIndex}{block:HasTags}<div class="tags">{lang:Tagged}: {block:Tags}<a href="{TagURL}">#{Tag}</a> {/block:Tags}</div>{/block:HasTags}{/block:IfNotTagsOnIndex}
+                    {block:PostNotes}
+                        <div class="notes">
+                            {PostNotes}
+                        </div>
+                    {/block:PostNotes}
+                {/block:PermalinkPage}
+            </div>
+            {/block:Posts}
+
         </div>
-        <div id="start_menu">
-            <div id="start_icon" class="icon"></div>
-            <div id="start_text">start</div>
-        </div>
-        <div id="my_docs" class="open_program">
-            <div id="docs_icon" class="icon"></div>
-            <div id="start_text">My Documents</div>
-        </div>
+        <div id="main_window_footer"></div>
+
+        <!-- footer content -->
+        <div id="bottom_bar"></div>
+        <div id="start_menu"></div>
+        <div id="start_menu_icon" class="windows_icon icon"></div>
+        <div id="start_menu_text">start</div>
+
+        <div id="my_computer" class="program inactive"></div>
+        <div id="my_computer_icon" class="my_computer_icon icon"></div>
+        <div id="my_computer_text" class="program_text">My Computer</div>
+
+        <div id="blog" class="program active"></div>
+        <div id="blog_icon" class="blog_icon icon"></div>
+        <div id="blog_text" class="program_text">Masterclips</div>
+
         <div id="time_box">
             <span>11:11 PM</span>
         </div>

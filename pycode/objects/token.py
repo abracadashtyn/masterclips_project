@@ -1,9 +1,9 @@
 import datetime as dt
 import pickle
 
-table_name = "tokens"
 # various statements and queries associated with the Token class but kept outside of it so we can use them without
 # instantiating a Token first
+table_name = "tokens"
 create_token_table_statement = f"CREATE TABLE IF NOT EXISTS {table_name} (" \
                                "id INT AUTO_INCREMENT PRIMARY KEY, " \
                                "token BLOB NOT NULL, expires_on " \
@@ -11,7 +11,8 @@ create_token_table_statement = f"CREATE TABLE IF NOT EXISTS {table_name} (" \
 delete_expired_tokens_statement = f"DELETE FROM {table_name} WHERE expires_on < NOW();"
 
 select_all_tokens_query = f"SELECT id, token, expires_on FROM {table_name} ORDER BY expires_on DESC;"
-get_latest_token_query = f"SELECT id, token, expires_on FROM {table_name} ORDER BY expires_on DESC LIMIT 1;"
+get_latest_token_query = f"SELECT id, token, expires_on FROM {table_name} WHERE expires_on > NOW() " \
+                         f"ORDER BY expires_on DESC LIMIT 1;"
 
 
 class Token:
@@ -19,8 +20,8 @@ class Token:
         self.id = id
         self.token = token
         if db_record is not None:
-            self.id = db_record['id']
-            self.token = pickle.loads(db_record['token'])
+            self.id = db_record[0]
+            self.token = pickle.loads(db_record[1])
 
     def __repr__(self):
         return f"Token(id={self.id}, expires_on={self.token['expires_at']})"
@@ -35,4 +36,3 @@ class Token:
         delete_statement = f"DELETE FROM {table_name} WHERE id = %s;"
         values = (self.id,)
         return delete_statement, values
-

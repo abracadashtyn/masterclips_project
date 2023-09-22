@@ -10,7 +10,7 @@ from pycode.objects.mysql_connection import MysqlConnection
 from pycode.scripts.convert import drive_to_cd_number_pairs
 
 if __name__ == "__main__":
-    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
     config = Config()
     db_conn = MysqlConnection(config)
     file_endings = {}
@@ -27,5 +27,5 @@ if __name__ == "__main__":
 
     logging.info("File endings found:")
     for key, value in sorted(file_endings.items(), key=lambda item: item[1], reverse=True):
-        print("{0}: {1}".format(key, value))
+        logging.info("{0}: {1}".format(key, value))
     logging.info("Total number of files: {0}".format(record_count))

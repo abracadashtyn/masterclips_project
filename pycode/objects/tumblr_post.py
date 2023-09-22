@@ -1,4 +1,5 @@
 import json
+import tkinter as tk
 
 from pycode.objects.clipart_image import ClipartImage
 
@@ -9,22 +10,26 @@ class TumblrPost:
             self.images = [images]
         elif (isinstance(images, list) or isinstance(images, tuple)) and \
                 all(isinstance(x, ClipartImage) for x in images):
-            self.images = images
+            self.images = list(images)
         else:
             raise ValueError("'images' param must be a ClipartImage or list of ClipartImages")
-        self.images = images
         self.attribution = config.get_standard_attribution()
-        self.caption = ""
-        self.tags = config.get_standard_tags()
+        self.image_base_location = config.get_image_base_dir()
         self.publish_state = config.get_default_post_state()
+
+        # these vars are set in the GUI, so they're stored in tkinter variables for easier access, but are still used
+        # in the command line version
+        self.title = tk.StringVar()
+        self.caption = tk.StringVar()
+        self.tags = tk.StringVar()
+        self.tags.set(','.join(config.get_standard_tags()))  # pre-populate with default tags
+
         self.validate()
 
-    def add_user_input(self):
-        self.caption = input("What should the caption be for this post? (Leave blank for none)")
-        tag_input = input("Enter any additional tags beyond the standard set that you want to add to this post. "
-                          "Leave blank for none.")
-        if tag_input != '':
-            self.tags += "," + ",".join([x.strip() for x in tag_input.split(',')])
+    def set_tags(self, tags):
+        if isinstance(tags, list) or isinstance(tags, tuple):
+            tags = ','.join(tags)
+        self.tags.set(self.tags.get() + ',' + tags)
 
     def validate(self):
         if len(self.images) == 0:
@@ -41,42 +46,61 @@ class TumblrPost:
         content = []
         for image in self.images:
             image_identifier = f"image_{image.id}"
-            post_data[image_identifier] = (image_identifier, open(image.get_converted_image_path(), 'rb'),
-                                              image.mimetype, {'Expires': '0'})
+            post_data[image_identifier] = (image_identifier,
+                                           open(image.get_converted_image_path(self.image_base_location), 'rb'),
+                                           image.mimetype,
+                                           {'Expires': '0'})
             content.append({
                 "type": "image",
                 "media": [{"type": image.mimetype, "identifier": image_identifier}],
-                "alt_text": image.alt_text
+                "alt_text": image.alt_text.get(),
+                "caption": image.original_filename
             })
-            content.append({
-                "type": "text",
-                "text": image.original_filename
-            })
+
+        commentary_string = f"\nFrom Disc #{self.images[0].origin_cd}, '{self.images[0].subdirectories}' directory"
+
+        if self.caption.get() != '':
+            commentary_string += "\n" + self.caption.get()
 
         content.append({
             "type": "text",
-            "text": f"From Disc #{self.images[0].origin_cd}, '{self.images[0].subdirectories}' directory"
-        })
-        if self.caption != '':
-            content.append({
-                "type": "text",
-                "text": self.caption
-            })
-        content.append({
-            "type": "text",
-            "text": self.attribution
+            "text": commentary_string
         })
 
-        post_data['json'] = (None, json.dumps({
-            "state": self.publish_state,
-            "tags": self.tags,
+        content.append({
+            "type": "text",
+            "text": self.attribution,
+            "formatting": [
+                {
+                    "start": 0,
+                    "end": len(self.attribution),
+                    "type": "small"
+                }
+            ]
+        })
+
+        layout = {
+            "type": "rows",
+            "display": [
+                {"blocks": [x for x in range(len(self.images))]},  # images
+                {"blocks": [len(self.images)]},  # description
+                {"blocks": [len(self.images) + 1]}  # attribution
+            ]
+        }
+        print(layout)
+
+        blob = {
+            'state': self.publish_state,
+            'tags': self.tags.get(),
             "content": content,
-            "source_url": "https://archive.org/details/masterclips-cd-pack",
-        }, separators=(',', ':')), 'application/json')
+            "layout": [layout]
+        }
+        print(json.dumps(blob, separators=(',', ':'), indent=4))
+        post_data['json'] = (None, json.dumps(blob, separators=(',', ':')), 'application/json')
 
         return post_data
 
     def add_image_from_record(self, db_record):
-        image_obj = ClipartImage(**db_record)
-        self.images += image_obj
+        image_obj = ClipartImage(*db_record)
+        self.images.append(image_obj)
         self.validate()
